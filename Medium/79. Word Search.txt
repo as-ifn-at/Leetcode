@@ -1,0 +1,51 @@
+class Solution {
+private:
+    int m,n;
+    //vector<vector<int>> vis;
+    //unordered_map<int,int> mp;
+    bool find(vector<vector<char>>& board, int r, int c, int pos, string &word) {
+        
+        if(pos==word.size()) {
+            
+            return true;
+        }
+        
+        if(r<0 || c<0 || r>=m || c>=n || board[r][c]!=word[pos] ) {
+            return false;
+        }
+        board[r][c]='$';
+        bool res= find(board,r+1,c,pos+1,word) || find(board,r-1,c,pos+1,word) ||
+            find(board,r,c+1,pos+1,word) || find(board,r,c-1,pos+1,word);
+        board[r][c]=word[pos];
+        
+        return res;
+    }
+    
+public:
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        
+        m=board.size();
+        n=board[0].size();
+        // map<char,vector<pair<int,int>>> mp;
+        // for(int i=0; i<m; i++) {
+        //     for(int j=0; j<n; j++) {
+        //         if(board[i][j]==word[0])
+        //             mp[word[0]].push_back({i,j});
+        //     }
+        // }
+        
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
+                if(find(board,i,j,0,word))
+                    return true;
+            }
+        }
+        // for(auto &[key,value]: mp)
+        //     for(int i=0; i<value.size(); i++)
+        //     if(find(board,value[i].first,value[i].second,0,word))
+        //         return true;
+        
+        return false;
+    }
+};

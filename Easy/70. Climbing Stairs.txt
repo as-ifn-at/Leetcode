@@ -1,0 +1,30 @@
+class Solution {
+public:
+//     int dp[46];
+//     Solution() {
+//         memset(dp,-1,sizeof(dp));
+//     }
+//     int climbStairs(int n) {
+        
+//         if(n>=0 && dp[n]!=-1)
+//             return dp[n];
+//         if(n<0)
+//             return 0;
+//         if(n==0)
+//             return 1;
+        
+//         return dp[n]=(climbStairs(n-1)+climbStairs(n-2));
+//     } memoziation
+    int climbStairs(int n) { //bottom up
+        
+        int one=1,two=1;
+        
+        for(int i=0; i<n-1; i++) {
+            int c=one;
+            one=one+two;
+            two=c;
+        }
+        return one;
+    }
+    
+};

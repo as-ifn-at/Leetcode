@@ -1,0 +1,16 @@
+class Solution {
+public:
+    string addSpaces(string s, vector<int>& spaces) {
+        int m=s.size(), n=spaces.size();
+        string ans(m+n,' ');
+        int k=0,l=0;
+        for(int i=0; i<m+n; i++) {
+            
+            if(k<n && i==spaces[k]+k)
+                k++;
+            else if(l<m)
+                ans[i]=s[l++];
+        }
+        return ans;
+    }
+};

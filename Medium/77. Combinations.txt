@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void comb(int idx, int k,vector<int> v,int n) {
+        if(v.size()==k) {
+            ans.push_back(v);
+            return;
+        }
+        for(int i=idx; i<=n; i++) {
+            
+            v.push_back(i);
+            comb(i+1,k,v,n);
+            v.pop_back();
+        }  
+    }
+    
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> v;
+        comb(1,k,v,n);
+        return ans;
+//         for(int i=0; i<n; i++) {
+            
+//             for(int )
+//         }
+    }
+};

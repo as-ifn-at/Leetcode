@@ -1,0 +1,39 @@
+class Solution {
+public:
+    string reorganizeString(string s) {
+        
+        int n=s.size();
+        if(n<2)
+            return s;
+        
+        string ans="";
+        unordered_map<char, int> mp;
+        
+        for(auto &i: s)
+            mp[i]++;
+        priority_queue<pair<int, char>> mh;
+        
+        for(auto &[key,value]: mp)
+            mh.push({value,key});
+        pair<int,char> prev={-1,'@'};
+        
+        while(!mh.empty() || prev.first!=-1) {
+            
+            if(mh.empty() && prev.first!=-1)
+                return "";
+            
+            char ch=mh.top().second;
+            int count=mh.top().first;
+            mh.pop();
+            ans+=ch;
+            count--;
+            if(prev.first!=-1) {
+                mh.push(prev);
+                prev={-1,'@'};
+            }
+            if(count!=0)
+                prev={count,ch};
+        }
+        return ans;
+    }
+};

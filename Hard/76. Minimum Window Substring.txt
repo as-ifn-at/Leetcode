@@ -1,0 +1,37 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        
+        if(t=="")
+            return "";
+        int n=s.size();
+        unordered_map<char,int> mp, wind;
+        for(auto &i: t)
+            mp[i]++;
+        int have=0 , need=mp.size(), l=0, lans=INT_MAX;
+        int ans= -1;
+        //string res="";
+        for(int r=0; r<n; r++) {
+            
+            wind[s[r]]++;
+            
+            if(mp.find(s[r])!=mp.end() && mp[s[r]]==wind[s[r]]) {
+                have+=1;
+            }
+            while(have==need) {
+                if((r-l+1) < lans) {
+                    ans=l;
+                    //ans[1]=r;
+                    lans=r-l+1;
+                }
+                wind[s[l]]-=1;   
+                if(mp.find(s[l])!=mp.end() && wind[s[l]]<mp[s[l]] )
+                    have-=1;
+                l++;
+            }
+        }
+        if(lans==INT_MAX)
+            return "";
+        return s.substr(ans,lans);
+    }
+};

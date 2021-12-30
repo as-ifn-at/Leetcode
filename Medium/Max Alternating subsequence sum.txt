@@ -1,0 +1,34 @@
+class Solution {
+    
+public:   
+    map< pair<int,bool>,long long> mp;
+    long long dfs(vector<int>& nums, int i ,int n, bool even) {
+        if(i==n)
+            return 0;
+        
+        if(mp.find({i,even})!=mp.end())
+            return mp[{i,even}];
+        
+        int total;
+        total= (even)? nums[i]: (-1)*nums[i];
+
+        return mp[{i,even}]=max( total+ dfs(nums, i+1,n,!even), dfs(nums, i+1,n, even) );
+    }
+
+    long long maxAlternatingSum(vector<int>& nums) {
+        
+        int n=nums.size();
+        //return dfs(nums,0,n,true);
+        using ll = long long;
+        ll sumE= 0, sumO= 0;
+        
+        for(int i=0; i<n; i++) {
+            
+            ll TemE = max(sumO + nums[i], sumE);
+            ll TemO = max(sumE - nums[i], sumO);
+            sumE=TemE;
+            sumO=TemO;
+        }
+        return sumE;
+    }
+};

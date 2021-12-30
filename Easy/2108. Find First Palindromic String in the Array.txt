@@ -1,0 +1,25 @@
+class Solution {
+private:
+    bool isPal(string str)
+    {   
+        if (str.size() == 1 || str.size() == 0)
+            return true;
+        else
+        {
+            if (str.at(0) != str.at(str.size() - 1))
+                return false;
+            else
+                return (isPal(str.substr(1, str.size() - 2)));
+        }
+    }
+    
+public:
+    using VS = vector<string>;
+    string firstPalindrome(VS& words) {
+        for(auto it: words) {
+            if(isPal(it))
+                return it;
+        }
+        return "";
+    }
+};
